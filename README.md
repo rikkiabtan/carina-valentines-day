@@ -1,1 +1,227 @@
-# carina-valentines-day
+[valentine_website_for_carina.3.html](https://github.com/user-attachments/files/25135721/valentine_website_for_carina.3.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Operation: Seal the Deal 🦭</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --pink: #f7c6d9;
+      --green: #c7dfc5;
+      --brown: #6b4f3f;
+      --cream: #fff8f2;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, var(--pink), var(--green));
+      color: var(--brown);
+      min-height: 100vh;
+    }
+
+    .page {
+      display: none;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1, h2 {
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .card {
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin: 30px auto;
+      max-width: 700px;
+    }
+
+    button {
+      background: var(--green);
+      border: none;
+      border-radius: 999px;
+      padding: 14px 26px;
+      font-size: 16px;
+      cursor: pointer;
+      color: var(--brown);
+      margin: 10px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .seal-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .seal {
+      width: 140px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .seal:hover {
+      transform: rotate(-4deg) scale(1.05);
+    }
+
+    .photo-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .photo-wall img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--cream);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    a {
+      color: var(--brown);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+  <h1>🕵️‍♀️ Operation: Seal the Deal</h1>
+  <div class="card">
+    <p>Detective Carina,</p>
+    <p>A highly classified love letter has gone missing. Your mission is to follow the clues, interrogate the seals, and crack the case.</p>
+    <p>Choose wisely. The seals are watching.</p>
+    <button onclick="goToPage('page2')">Open the case file</button>
+  </div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+  <h2>Interrogate the Seals 🦭</h2>
+  <div class="card">
+    <p>Only one seal tells the truth. Click carefully.</p>
+    <div class="seal-row">
+      <img class="seal" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Harbor_Seal_Pup.jpg" onclick="sealClue(false)" />
+      <img class="seal" src="https://upload.wikimedia.org/wikipedia/commons/7/70/Harp_seal_pup.jpg" onclick="sealClue(true)" />
+      <img class="seal" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Gray_seal_pup.jpg" onclick="sealClue(false)" />
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page" id="page3">
+  <h2>Soundtrack Evidence 🎶</h2>
+  <div class="card">
+    <p>One of these songs captures *us*. Choose correctly.</p>
+    <button onclick="songChoice(false)">Too Cool by Drake</button>
+    <button onclick="songChoice(true)">Lover by Taylor Swift</button>
+    <button onclick="songChoice(false)">Random Access Memories</button>
+  </div>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page" id="page4">
+  <h2>Photo Evidence 📸</h2>
+  <div class="card">
+    <p>Study the evidence. These moments matter.</p>
+    <div class="photo-wall">
+      <img src="68AC3275-A09E-4A51-A497-FCB05B643D93_1_105_c.jpeg" />
+      <img src="38C5CF1A-2028-4CDA-A89D-E60063F5E7D2_4_5005_c.jpeg" />
+      <img src="989ABE9E-AA17-4312-9FB5-C13E2764B28B_4_5005_c.jpeg" />
+    </div>
+    <button onclick="goToPage('page5')">I know where the letter is</button>
+  </div>
+</section>
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+  <h2>The Letter 💌</h2>
+  <div class="card">
+    <p>You solved it. Of course you did.</p>
+    <p><em>Write your letter here.</em></p>
+    <p>I love you in the quiet ways and the loud ways and the everyday ways. Will you be my Valentine?</p>
+    <h3>🦭🦭🦭</h3>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p id="modal-text"></p>
+    <button onclick="closeModal()">ok</button>
+  </div>
+</div>
+
+<script>
+  function goToPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function openModal(text) {
+    document.getElementById('modal-text').innerText = text;
+    document.getElementById('modal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+
+  function sealClue(correct) {
+    if (correct) {
+      openModal('The seal nods solemnly. "Love is patient," it whispers.');
+      setTimeout(() => goToPage('page3'), 1200);
+    } else {
+      openModal('The seal flops dramatically. This one is lying.');
+    }
+  }
+
+  function songChoice(correct) {
+    if (correct) {
+      openModal('Correct. This song feels like home.');
+      setTimeout(() => goToPage('page4'), 1200);
+    } else {
+      openModal('Hmm. Good song. Wrong vibe.');
+    }
+  }
+</script>
+
+</body>
+</html>
